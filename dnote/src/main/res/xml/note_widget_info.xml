@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--按理说是不需要被动更新的 修改笔记时主动更新即可-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:initialLayout="@layout/note_widget_normal"
+    android:minWidth="110dp"
+    android:minHeight="40dp"
+    android:resizeMode="horizontal|vertical"/>
+
+<!--    android:previewImage ： 预览图片，拖动小部件到桌面时有个预览图-->
+<!--    android:updatePeriodMillis ： 更新widget的时间间隔(ms)，"86400000"为1个小时，值小于30分钟时，会被设置为30分钟。可以用 service、AlarmManager、Timer 控制。-->
+<!--    android:resizeMode ： 拉伸的方向。horizontal表示可以水平拉伸，vertical表示可以竖直拉伸-->
+<!--    android:minWidth="110dp" ：即 2x2 的空间-->
+

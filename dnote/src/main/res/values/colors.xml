@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorTagNormal">#C0C0C0</color>
+    <color name="colorTagStudy">#FF9800</color>
+    <color name="colorTagLife">#8BC34A</color>
+    <color name="colorTagWork">#03A9F4</color>
+    <color name="colorTagWarn">#FF5722</color>
+    <color name="colorPriorityImportant">#FF5722</color>
+    <color name="colorPrioritySecondary">#FF4081</color>
+    <color name="colorPriorityOrdinary">#FF9800</color>
+    <color name="colorPriorityNotInHurry">#8BC34A</color>
+</resources>

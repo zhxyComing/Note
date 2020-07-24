@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    tools:context=".launch.HomeActivity">
+
+    <!--为了实现蒙层加的-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--顶部Card-->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/colorTransparent"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:orientation="horizontal"
+                        android:padding="20dp">
+
+                        <TextView
+                            android:id="@+id/app_home_time_desc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="Good Morning."
+                            android:textColor="@color/colorBlack"
+                            android:textSize="26sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start|center_vertical"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:src="@mipmap/icon_sun" />
+
+                        <!--                        更多功能暂时隐藏-->
+                        <!--                        <TextView-->
+                        <!--                            android:layout_width="wrap_content"-->
+                        <!--                            android:layout_height="wrap_content"-->
+                        <!--                            android:text="..."-->
+                        <!--                            android:textColor="@color/colorTextBlackUp"-->
+                        <!--                            android:textSize="24sp"-->
+                        <!--                            android:textStyle="bold" />-->
+
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="20dp"
+                            android:paddingEnd="20dp"
+                            android:paddingBottom="20dp"
+                            android:text="Browse your notes"
+                            android:textColor="@color/colorTextBlackMid"
+                            android:textSize="20sp" />
+
+                    </FrameLayout>
+
+
+                    <com.dixon.note.view.NoteViewPager
+                        android:id="@+id/app_home_vp"
+                        android:layout_width="match_parent"
+                        android:layout_height="220dp"
+                        android:overScrollMode="never" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!--下拉和时间线-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.dixon.note.view.RotateImageView
+                    android:id="@+id/app_home_drop"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="end"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:src="@drawable/ic_drop_down_42"
+                    app:civ_border_color="@color/colorWhite"
+                    app:civ_border_width="2dp"
+                    app:civ_fill_color="#40339999" />
+
+                <com.dixon.note.view.NoteListView
+                    android:id="@+id/app_home_lv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never"
+                    android:scrollbars="none" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--暂时隐藏蒙版-->
+        <!--        <com.dixon.note.view.MaskView-->
+        <!--            android:id="@+id/app_home_mask"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:background="#60000000" />-->
+
+    </FrameLayout>
+
+    <!--底部功能Card-->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/colorWhite"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="25dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.dixon.note.view.NoteEditView
+                    android:id="@+id/app_home_note_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp" />
+
+                <com.dixon.note.view.SetLayout
+                    android:id="@+id/app_home_set_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp" />
+            </FrameLayout>
+
+            <com.dixon.note.view.MenuLayout
+                android:id="@+id/app_home_menu"
+                android:layout_width="match_parent"
+                android:layout_height="75dp" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

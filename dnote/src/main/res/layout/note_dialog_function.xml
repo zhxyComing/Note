@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/note_tv_function_app_widget"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/note_shape_function_normal"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="设为桌面小部件"
+        android:textColor="@color/colorWhiteGrey"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/note_tv_function_app_float"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/note_shape_function_normal"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="设为悬浮窗笔记"
+        android:textColor="@color/colorWhiteGrey"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/note_tv_function_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/note_shape_function_warn"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="删除这条笔记"
+        android:textColor="@color/colorWhiteGrey"
+        android:textSize="16sp" />
+
+</LinearLayout>

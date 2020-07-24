@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <com.dixon.note.view.MenuFunView
+        android:id="@+id/app_menu_fun_note"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        app:menu_checked="true"
+        app:menu_icon="@mipmap/icon_note"
+        app:menu_text="笔记" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <com.dixon.note.view.MenuFunView
+        android:id="@+id/app_menu_fun_upcoming"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        app:menu_checked="false"
+        app:menu_icon="@mipmap/icon_upcoming"
+        app:menu_text="待办" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <com.dixon.note.view.MenuFunView
+        android:id="@+id/app_menu_fun_edit"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        app:menu_checked="false"
+        app:menu_icon="@mipmap/icon_edit"
+        app:menu_text="写笔记" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <com.dixon.note.view.MenuFunView
+        android:id="@+id/app_menu_fun_punch"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        app:menu_checked="false"
+        app:menu_icon="@mipmap/icon_punch"
+        app:menu_text="打卡" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <com.dixon.note.view.MenuFunView
+        android:id="@+id/app_menu_fun_set"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        app:menu_checked="false"
+        app:menu_icon="@mipmap/icon_set"
+        app:menu_text="设置" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</merge>

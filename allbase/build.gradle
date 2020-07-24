@@ -1,0 +1,45 @@
+apply plugin: 'com.dixon.component'
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // 基础工具类集合
+    api 'com.dixon.library:dlibrary:1.0.1'
+    // 路由
+    api 'com.dixon.srouter:simple_router:1.0.2'
+    // 卡片View
+    api "androidx.cardview:cardview:1.0.0"
+    // 左右对齐TextView
+    api 'cn.tseeey:justtextview:0.1.0'
+    // dialog
+    api 'com.github.andyxialm:ColorDialog:1.0.0'
+
+    // android room 数据库框架
+    api 'androidx.room:room-runtime:2.3.0-alpha01'
+    annotationProcessor 'androidx.room:room-compiler:2.3.0-alpha01'
+}

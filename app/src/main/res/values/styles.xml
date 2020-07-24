@@ -1,0 +1,7 @@
+<resources>
+    <declare-styleable name="MenuFunView">
+        <attr name="menu_icon" format="dimension" />
+        <attr name="menu_text" format="string" />
+        <attr name="menu_checked" format="boolean" />
+    </declare-styleable>
+</resources>

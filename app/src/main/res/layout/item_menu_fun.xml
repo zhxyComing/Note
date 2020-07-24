@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="40dp"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/app_menu_fun_icon"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@mipmap/icon_note" />
+
+    <TextView
+        android:id="@+id/app_menu_fun_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="笔记"
+        android:textColor="#339999"
+        android:textSize="12sp" />
+
+</merge>

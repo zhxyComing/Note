@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/note_ll_float_desc_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal"
+            app:cardBackgroundColor="@color/colorWhiteGrey"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/note_tv_float_desc_small"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="4dp"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:src="@mipmap/note_ic_float_desc_size"
+                    android:textColor="@color/colorGreyDown"
+                    android:textSize="12sp" />
+
+                <ImageView
+                    android:id="@+id/note_tv_float_desc_go"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="4dp"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:src="@mipmap/note_ic_float_desc_go"
+                    android:textColor="@color/colorGreyDown"
+                    android:textSize="12sp" />
+
+                <ImageView
+                    android:id="@+id/note_tv_float_desc_close"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:src="@mipmap/note_ic_float_desc_close"
+                    android:textColor="@color/colorGreyDown"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/note_tv_float_desc_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="4dp"
+                android:padding="10dp"
+                android:textColor="#606060"
+                android:textIsSelectable="true"
+                android:textSize="10sp"
+                tools:ignore="SmallSp" />
+        </ScrollView>
+
+    </LinearLayout>
+
+</merge>

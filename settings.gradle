@@ -1,0 +1,4 @@
+include ':dnote'
+include ':allbase'
+include ':app'
+rootProject.name = "note"
