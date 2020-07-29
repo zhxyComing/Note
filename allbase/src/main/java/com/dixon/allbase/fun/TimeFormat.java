@@ -22,6 +22,15 @@ public class TimeFormat {
         return format.format(date);
     }
 
+    /**
+     * 将[long]转为[yyyy年MM月dd日]格式字符串
+     */
+    public static String formatChina(long time) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日", Locale.CHINA);
+        Date date = new Date(time);
+        return format.format(date);
+    }
+
     public static int hour(long time) {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(time);
@@ -42,13 +51,13 @@ public class TimeFormat {
         String str = df.format(date);
         int a = Integer.parseInt(str);
         if (a >= 0 && a <= 12) {
-            return "Good Morning.";
+            return "早上好";
         }
         if (a > 12 && a <= 18) {
-            return "Good Afternoon.";
+            return "下午好";
         }
         if (a > 18 && a <= 24) {
-            return "Good Evening.";
+            return "晚上好";
         }
         return "";
     }

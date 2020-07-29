@@ -1,7 +1,9 @@
 package com.dixon.dnote.activity;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -9,7 +11,9 @@ import android.widget.TextView;
 import com.dixon.allbase.base.BaseActivity;
 import com.dixon.allbase.bean.NoteBean;
 import com.dixon.allbase.fun.SelectChangeManager;
+import com.dixon.allbase.fun.TimeFormat;
 import com.dixon.allbase.model.RouterConstant;
+import com.dixon.dlibrary.util.FontUtil;
 import com.dixon.dlibrary.util.ToastUtil;
 import com.dixon.dnote.R;
 import com.dixon.dnote.core.NoteService;
@@ -21,6 +25,7 @@ import com.dixon.simple.router.core.SRouter;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.MessageFormat;
 import java.util.Date;
 
 /**
@@ -37,12 +42,16 @@ public class NoteEditActivity extends BaseActivity implements View.OnClickListen
 
     private EditText inputView;
     private View priorityView;
+    private TextView tipView;
 
     private int tag = NoteBean.TAG_NORMAL;
     private int priority = NoteBean.PRIORITY_NOT_IN_HURRY;
 
+    // 可能为null null则新建
     @SimpleParam(value = "update_data")
     NoteBean updateNoteBean;
+
+    private String tipSuffix;
 
     private SelectChangeManager<TextView> selectChangeManager = new SelectChangeManager<TextView>() {
         @Override
@@ -66,12 +75,35 @@ public class NoteEditActivity extends BaseActivity implements View.OnClickListen
         if (updateNoteBean != null) {
             initUpdateData();
         }
+        init();
+    }
+
+    private void init() {
+        tipSuffix = TimeFormat.dayDesc() + "，今天是" + TimeFormat.formatChina(new Date().getTime()) + "，您已记录";
+        inputView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                tipView.setText(MessageFormat.format("{0}{1}个字。", tipSuffix, s.length()));
+            }
+        });
+        tipView.setText(MessageFormat.format("{0}{1}个字。", tipSuffix, updateNoteBean == null ? 0 : updateNoteBean.getContent().length()));
     }
 
     @Override
     public void onContentChanged() {
         super.onContentChanged();
         inputView = findViewById(R.id.note_et_edit_input);
+        tipView = findViewById(R.id.note_tv_edit_tip);
         findViewById(R.id.note_tv_edit_ok).setOnClickListener(this);
 
         findViewAndAddToManager(NoteBean.TAG_NORMAL, R.id.note_tv_tag_normal);
@@ -96,6 +128,7 @@ public class NoteEditActivity extends BaseActivity implements View.OnClickListen
         inputView.setText(updateNoteBean.getContent());
         selectChangeManager.setSelected(String.valueOf(updateNoteBean.getTag()));
         setPriorityView(updateNoteBean.getPriority());
+        FontUtil.font(inputView);
     }
 
     /**
@@ -199,7 +232,7 @@ public class NoteEditActivity extends BaseActivity implements View.OnClickListen
             ToastUtil.toast("笔记不能为空哦～");
             return;
         }
-        NoteBean noteBean = new NoteBean();
+        final NoteBean noteBean = new NoteBean();
         noteBean.setTime(new Date().getTime());
         noteBean.setPriority(priority);
         noteBean.setContent(content);
@@ -209,6 +242,9 @@ public class NoteEditActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onFinish() {
                 ToastUtil.toast("添加完成");
+                // 设置为悬浮窗笔记
+                NoteService.getInstance().saveFloatData(noteBean, null);
+                // 刷新主页面
                 EventBus.getDefault().post(new NoteTableRefreshEvent());
                 finish();
             }

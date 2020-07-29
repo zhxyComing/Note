@@ -29,6 +29,10 @@ public class TouchControl {
                 singleClickTag = true;
                 break;
             case MotionEvent.ACTION_MOVE:
+                if (lastX == 0 && lastY == 0) {
+                    lastX = x;
+                    lastY = y;
+                }
                 // 计算偏移量
                 int offsetX = x - lastX;
                 int offsetY = y - lastY;
@@ -44,6 +48,8 @@ public class TouchControl {
                 if (singleClickTag && onControlListener != null) {
                     onControlListener.onClick();
                 }
+                lastX = 0;
+                lastY = 0;
                 break;
         }
         return true;

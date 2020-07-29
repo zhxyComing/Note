@@ -54,7 +54,7 @@ public class FloatContainer {
         mWidth = ScreenUtil.dpToPxInt(AppTracker.getCurApplication(), 50);
         mHeight = ScreenUtil.dpToPxInt(AppTracker.getCurApplication(), 50);
         mX = SharedUtil.getInt(POSITION_X, 300);
-        mY = SharedUtil.getInt(POSITION_Y, 300);
+        mY = SharedUtil.getInt(POSITION_Y, 600);
     }
 
     /**

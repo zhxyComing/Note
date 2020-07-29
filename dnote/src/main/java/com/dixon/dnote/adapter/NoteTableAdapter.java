@@ -11,8 +11,10 @@ import android.widget.TextView;
 
 import com.dixon.allbase.bean.NoteBean;
 import com.dixon.allbase.fun.TimeFormat;
+import com.dixon.dlibrary.util.FontUtil;
 import com.dixon.dnote.R;
 import com.dixon.dnote.bean.NoteTableItem;
+import com.dixon.dnote.core.NoteService;
 
 import java.util.List;
 
@@ -27,9 +29,23 @@ public class NoteTableAdapter extends BaseAdapter {
     private Context mContext;
     private OnItemFunctionClickListener mFunctionClickListener;
 
+    private long mWeightNoteId, mFloatNoteId;
+
     public NoteTableAdapter(List<NoteTableItem> items, Context context) {
         this.mItems = items;
         this.mContext = context;
+        setWindowNoteId();
+    }
+
+    private void setWindowNoteId() {
+        NoteBean widgetData = NoteService.getInstance().getWidgetData();
+        if (widgetData != null) {
+            mWeightNoteId = widgetData.getId();
+        }
+        NoteBean floatData = NoteService.getInstance().getFloatData();
+        if (floatData != null) {
+            mFloatNoteId = floatData.getId();
+        }
     }
 
     @Override
@@ -119,6 +135,11 @@ public class NoteTableAdapter extends BaseAdapter {
                 return true;
             }
         });
+        if (noteBean.getId() == mWeightNoteId || noteBean.getId() == mFloatNoteId) {
+            holderNote.desktopTagView.setVisibility(View.VISIBLE);
+        } else {
+            holderNote.desktopTagView.setVisibility(View.GONE);
+        }
     }
 
     private void setTagView(TextView tagView, int tag) {
@@ -178,6 +199,7 @@ public class NoteTableAdapter extends BaseAdapter {
 
         public ViewHolderTime(View container) {
             timeSimpleView = container.findViewById(R.id.note_tv_time_simple_desc);
+            FontUtil.font(timeSimpleView);
         }
     }
 
@@ -197,6 +219,7 @@ public class NoteTableAdapter extends BaseAdapter {
             priorityView = container.findViewById(R.id.note_v_priority);
             tagView = container.findViewById(R.id.note_tv_tag_desc);
             itemCardView = container.findViewById(R.id.note_ll_item_card);
+            FontUtil.font(timeDetailView, contentView, tagView);
         }
     }
 
@@ -214,5 +237,11 @@ public class NoteTableAdapter extends BaseAdapter {
 
     public void setOnItemFunctionClickListener(OnItemFunctionClickListener functionClickListener) {
         mFunctionClickListener = functionClickListener;
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        setWindowNoteId();
+        super.notifyDataSetChanged();
     }
 }

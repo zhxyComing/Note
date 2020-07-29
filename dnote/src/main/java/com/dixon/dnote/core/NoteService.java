@@ -98,7 +98,9 @@ public class NoteService {
                 HandlerUtil.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        callback.onFinish();
+                        if (callback != null) {
+                            callback.onFinish();
+                        }
                     }
                 });
             }
@@ -116,7 +118,9 @@ public class NoteService {
                 HandlerUtil.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        callback.onFinish();
+                        if (callback != null) {
+                            callback.onFinish();
+                        }
                     }
                 });
             }
@@ -134,7 +138,9 @@ public class NoteService {
                 HandlerUtil.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        callback.onFinish();
+                        if (callback != null) {
+                            callback.onFinish();
+                        }
                     }
                 });
             }

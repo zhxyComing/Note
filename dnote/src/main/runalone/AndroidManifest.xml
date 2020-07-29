@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.NoteSetActivity"></activity>
+        <activity android:name=".activity.NoteHelpActivity"/>
+        <activity android:name=".activity.NoteSetActivity" />
         <activity android:name=".activity.NoteEditActivity" />
         <activity android:name=".activity.NoteTableActivity">
             <intent-filter>

@@ -1,21 +1,25 @@
 package com.dixon.dnote.view;
 
 import android.content.Context;
+import android.text.Editable;
 import android.text.TextUtils;
-import android.util.Log;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.dixon.allbase.bean.NoteBean;
 import com.dixon.allbase.fun.SelectChangeManager;
+import com.dixon.allbase.fun.TimeFormat;
 import com.dixon.allbase.view.BaseDialog;
 import com.dixon.dlibrary.util.AppTracker;
+import com.dixon.dlibrary.util.FontUtil;
 import com.dixon.dlibrary.util.ScreenUtil;
 import com.dixon.dlibrary.util.ToastUtil;
 import com.dixon.dnote.R;
 import com.dixon.dnote.core.NoteService;
 
+import java.text.MessageFormat;
 import java.util.Date;
 
 /**
@@ -27,10 +31,12 @@ public class NoteEditDialog extends BaseDialog {
 
     private EditText inputView;
     private View priorityView;
+    private TextView tipView;
 
     private Listener listener;
     private int tag = NoteBean.TAG_NORMAL;
     private int priority = NoteBean.PRIORITY_NOT_IN_HURRY;
+    private String tipSuffix;
 
     private NoteBean updateNoteBean;
 
@@ -83,8 +89,9 @@ public class NoteEditDialog extends BaseDialog {
     @Override
     protected void findView() {
         inputView = findViewById(R.id.note_et_edit_input);
+        tipView = findViewById(R.id.note_tv_edit_tip);
+        FontUtil.font(inputView, tipView);
         findViewById(R.id.note_tv_edit_ok).setOnClickListener(this);
-        findViewById(R.id.note_tv_edit_close).setOnClickListener(this);
 
         findViewAndAddToManager(NoteBean.TAG_NORMAL, R.id.note_tv_tag_normal);
         findViewAndAddToManager(NoteBean.TAG_STUDY, R.id.note_tv_tag_study);
@@ -106,6 +113,28 @@ public class NoteEditDialog extends BaseDialog {
         if (updateNoteBean != null) {
             initUpdateData();
         }
+        initTipView();
+    }
+
+    private void initTipView() {
+        tipSuffix = TimeFormat.formatChina(new Date().getTime()) + " ";
+        inputView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                tipView.setText(MessageFormat.format("{0}{1}字", tipSuffix, s.length()));
+            }
+        });
+        tipView.setText(MessageFormat.format("{0}{1}字", tipSuffix, updateNoteBean == null ? 0 : updateNoteBean.getContent().length()));
     }
 
     /**
@@ -165,7 +194,8 @@ public class NoteEditDialog extends BaseDialog {
 
     @Override
     protected int widthPx() {
-        return ScreenUtil.dpToPxInt(getContext(), 380);
+//        return ScreenUtil.dpToPxInt(getContext(), 380);
+        return ScreenUtil.getDisplayWidth(getContext()) - ScreenUtil.dpToPxInt(getContext(), 60);
     }
 
     @Override
@@ -181,8 +211,6 @@ public class NoteEditDialog extends BaseDialog {
             } else {
                 addNote();
             }
-        } else if (v.getId() == R.id.note_tv_edit_close) {
-            dismiss();
         } else if (v.getId() == R.id.note_tv_tag_normal) {
             setTagSelected(NoteBean.TAG_NORMAL);
         } else if (v.getId() == R.id.note_tv_tag_study) {
@@ -261,7 +289,6 @@ public class NoteEditDialog extends BaseDialog {
      * 更新旧笔记的dialog
      */
     public static void showUpdateNoteDialog(NoteBean noteBean, Listener listener) {
-        Log.e("testkkk", AppTracker.getCurActivity() + " !!!");
         new NoteEditDialog(AppTracker.getCurActivity(), R.style.dialog, listener, noteBean).show();
     }
 

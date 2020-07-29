@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import com.dixon.allbase.bean.NoteBean;
 import com.dixon.allbase.model.RouterConstant;
 import com.dixon.dlibrary.util.AnimationUtil;
+import com.dixon.dlibrary.util.FontUtil;
 import com.dixon.dlibrary.util.SharedUtil;
 import com.dixon.dlibrary.util.ToastUtil;
 import com.dixon.dnote.R;
@@ -86,6 +87,7 @@ public class NoteFloatDescView extends FloatContent {
         mContentView = findViewById(R.id.note_ll_float_desc_content);
         // 设置内容
         mDescView = findViewById(R.id.note_tv_float_desc_content);
+        FontUtil.font(mDescView);
         NoteBean floatData = NoteService.getInstance().getFloatData();
         if (floatData != null) {
             mDescView.setText(floatData.getContent());
@@ -118,10 +120,6 @@ public class NoteFloatDescView extends FloatContent {
 
     private void startEdit() {
         NoteBean floatData = NoteService.getInstance().getFloatData();
-        if (floatData == null) {
-            ToastUtil.toast("尚未设置悬浮窗笔记");
-            return;
-        }
         SRouter.build(getContext(), RouterConstant.NOTE_EDIT)
                 .addParams("update_data", floatData)
                 .execute();

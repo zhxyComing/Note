@@ -37,12 +37,12 @@
         android:id="@+id/note_ll_set_float_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="10dp"
         android:background="?android:attr/selectableItemBackground"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="8dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -54,15 +54,15 @@
                 android:layout_height="wrap_content"
                 android:text="悬浮窗样式"
                 android:textColor="@color/colorTextBlackMid"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="决定悬浮窗笔记的样式及功能"
+                android:layout_marginTop="8dp"
+                android:text="悬浮窗笔记的功能及样式"
                 android:textColor="@color/colorTextBlackLight"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
         </LinearLayout>
 
         <View
@@ -74,9 +74,9 @@
             android:id="@+id/note_tv_set_float_style_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="最简式"
-            android:textColor="@color/colorBlueSecond"
+            android:layout_gravity="bottom"
+            android:text="Simple"
+            android:textColor="#8BC34A"
             android:textSize="18sp" />
 
     </LinearLayout>
@@ -84,8 +84,64 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
         android:background="#A0A0A0" />
+
+    <LinearLayout
+        android:id="@+id/note_ll_set_help"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="8dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="使用帮助"
+                android:textColor="@color/colorTextBlackMid"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="桌面笔记的使用指南"
+                android:textColor="@color/colorTextBlackLight"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        android:background="#A0A0A0" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:text="桌面笔记 1.0.0"
+        android:textColor="@color/colorTextBlackLight"
+        android:textSize="14sp" />
 
 </LinearLayout>

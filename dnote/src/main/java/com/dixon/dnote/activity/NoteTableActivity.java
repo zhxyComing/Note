@@ -4,16 +4,19 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.dixon.allbase.base.BaseActivity;
 import com.dixon.allbase.bean.NoteBean;
 import com.dixon.allbase.fun.TimeUtil;
 import com.dixon.allbase.model.RouterConstant;
+import com.dixon.dlibrary.util.SharedUtil;
 import com.dixon.dlibrary.util.ToastUtil;
 import com.dixon.dnote.R;
 import com.dixon.dnote.adapter.NoteTableAdapter;
 import com.dixon.dnote.bean.NoteTableItem;
 import com.dixon.dnote.core.NoteService;
+import com.dixon.dnote.desktop.window.NoteFloatService;
 import com.dixon.dnote.event.NoteTableRefreshEvent;
 import com.dixon.dnote.view.NoteEditDialog;
 import com.dixon.dnote.view.NoteFunctionDialog;
@@ -26,6 +29,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @SimpleRouter(value = RouterConstant.NOTE_TABLE, interceptor = "")
@@ -37,6 +41,9 @@ public class NoteTableActivity extends BaseActivity {
     private ListView mTableView;
     private View mCreateNewView;
     private View mSetView;
+    private TextView mNoteNumView;
+    private View mFloatShow;
+    private View mEmptyView;
 
     private NoteTableAdapter mTableAdapter;
 
@@ -49,9 +56,25 @@ public class NoteTableActivity extends BaseActivity {
         setContentView(R.layout.activity_note_table);
         SRouter.initParams(this);
 
+        firstInLogic();
+
         loadData();
         initLogic();
         EventBus.getDefault().register(this);
+    }
+
+    // 首次进入 添加默认笔记
+    private void firstInLogic() {
+        if (SharedUtil.getBoolean("first_in", true)) {
+            SharedUtil.putBoolean("first_in", false);
+            NoteBean noteBean = new NoteBean();
+            noteBean.setTag(NoteBean.TAG_NORMAL);
+            noteBean.setId(System.currentTimeMillis());
+            noteBean.setTime(new Date().getTime());
+            noteBean.setPriority(NoteBean.PRIORITY_NOT_IN_HURRY);
+            noteBean.setContent("欢迎使用桌面笔记\n桌面笔记目前支持桌面小部件、桌面悬浮窗俩种便捷记录形式，更多使用说明参见【设置-使用帮助】。\n谢谢您的使用。");
+            NoteService.getInstance().addData(noteBean, null);
+        }
     }
 
     private void initLogic() {
@@ -71,6 +94,17 @@ public class NoteTableActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 SRouter.build(NoteTableActivity.this, RouterConstant.NOTE_SET).execute();
+            }
+        });
+        // 显示悬浮窗
+        mFloatShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!NoteFloatService.getInstance().hasShow()) {
+                    NoteFloatService.getInstance().showFloatWindow();
+                } else {
+                    ToastUtil.toast("已显示悬浮笔记");
+                }
             }
         });
     }
@@ -114,12 +148,18 @@ public class NoteTableActivity extends BaseActivity {
         NoteService.getInstance().queryAll(new NoteService.ResponseCallback<List<NoteBean>>() {
             @Override
             public void onSuccess(List<NoteBean> data) {
+                mEmptyView.setVisibility(View.GONE);
+                // 更新笔记数量
+                mNoteNumView.setText(String.valueOf(data.size()));
                 loadNotes(parseToNoteItem(data));
             }
 
             @Override
             public void onFail(String desc) {
                 ToastUtil.toast(desc);
+                mEmptyView.setVisibility(View.VISIBLE);
+                // 给个空列表
+                loadNotes(new ArrayList<NoteTableItem>());
             }
         });
     }
@@ -151,6 +191,18 @@ public class NoteTableActivity extends BaseActivity {
             public void onItemCardLongClick(final NoteBean noteBean) {
                 // 长按item，调出功能键
                 NoteFunctionDialog.showDialog(noteBean, new NoteFunctionDialog.Listener() {
+                    @Override
+                    public void onWeightSetSuccess() {
+                        // 刷新布局
+                        mTableAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onFloatSetSuccess() {
+                        // 刷新布局
+                        mTableAdapter.notifyDataSetChanged();
+                    }
+
                     @Override
                     public void onDeleteSuccess() {
                         loadData();
@@ -207,6 +259,9 @@ public class NoteTableActivity extends BaseActivity {
         mTableView = findViewById(R.id.note_lv_table);
         mCreateNewView = findViewById(R.id.note_iv_add_new);
         mSetView = findViewById(R.id.note_iv_set_go);
+        mNoteNumView = findViewById(R.id.note_tv_table_num);
+        mFloatShow = findViewById(R.id.note_iv_float_show);
+        mEmptyView = findViewById(R.id.note_iv_table_empty);
     }
 
     @Override

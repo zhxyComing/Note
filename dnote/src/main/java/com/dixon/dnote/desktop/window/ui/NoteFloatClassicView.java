@@ -7,12 +7,12 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,9 +20,9 @@ import androidx.annotation.Nullable;
 import com.dixon.allbase.bean.NoteBean;
 import com.dixon.allbase.model.RouterConstant;
 import com.dixon.dlibrary.util.AnimationUtil;
+import com.dixon.dlibrary.util.FontUtil;
 import com.dixon.dlibrary.util.ScreenUtil;
 import com.dixon.dlibrary.util.SharedUtil;
-import com.dixon.dlibrary.util.ToastUtil;
 import com.dixon.dnote.R;
 import com.dixon.dnote.core.NoteService;
 import com.dixon.dnote.desktop.window.NoteFloatService;
@@ -54,12 +54,12 @@ public class NoteFloatClassicView extends FloatContent {
     private static final int DEFAULT_STANDARD_HEIGHT_DP = 180;
 
     private static final int DEFAULT_SMALL_WIDTH_DP = 27;
-    private static final int DEFAULT_SMALL_HEIGHT_DP = 92;
+    private static final int DEFAULT_SMALL_HEIGHT_DP = 72;
 
     private TouchControl touchControl;
 
-    private TouchBackView mSizeView;
-    private EditText mContentView;
+    private TouchBackView mLeftFunView, mRightFunView;
+    private TextView mContentView;
     private View mSmallLayout, mStandardLayout;
 
     private int mStatue;
@@ -90,15 +90,36 @@ public class NoteFloatClassicView extends FloatContent {
     }
 
     private void findView() {
-        mSizeView = findViewById(R.id.note_tbv_float_classic_resize);
+        mLeftFunView = findViewById(R.id.note_tbv_float_classic_smaller_and_move);
+        mRightFunView = findViewById(R.id.note_tbv_float_classic_close_and_resize);
         mContentView = findViewById(R.id.note_net_float_classic_content);
         mStandardLayout = findViewById(R.id.note_cv_float_classic_standard_layout);
         mSmallLayout = findViewById(R.id.note_cv_float_classic_small_layout);
+
+        mLeftFunView.setDirection(TouchBackView.DIRECTION_TOP_LEFT);
+        mRightFunView.setDirection(TouchBackView.DIRECTION_TOP_RIGHT);
+
+        FontUtil.font(mContentView);
     }
 
     private void initView() {
-        // 重设尺寸的监听
-        mSizeView.setOnTouchBackListener(new ResizeTouchListener());
+        // 右功能键：滑动重设尺寸 点击关闭
+        mRightFunView.setOnTouchBackListener(new ResizeTouchListener());
+        // 左功能键：滑动移动 点击小化
+        mLeftFunView.setOnTouchBackListener(new TouchBackView.OnSimpleTouchBackListener() {
+            @Override
+            public void onTouch(int offsetX, int offsetY) {
+                // 移动悬浮窗
+                NoteFloatService.getInstance().move(offsetX, offsetY);
+            }
+
+            @Override
+            public void onClick() {
+                super.onClick();
+                // 小化
+                changeToSmall();
+            }
+        });
         // 设置内容
         setContentText();
         // 内容点击跳转
@@ -106,28 +127,10 @@ public class NoteFloatClassicView extends FloatContent {
             @Override
             public void onClick(View v) {
                 NoteBean floatData = NoteService.getInstance().getFloatData();
-                if (floatData == null) {
-                    ToastUtil.toast("尚未设置悬浮窗笔记");
-                    return;
-                }
                 // 跳转到笔记编辑页
                 SRouter.build(getContext(), RouterConstant.NOTE_EDIT)
                         .addParams("update_data", floatData)
                         .execute();
-            }
-        });
-        // 关闭按钮
-        findViewById(R.id.note_tv_float_classic_close).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NoteFloatService.getInstance().dismiss();
-            }
-        });
-        // 小化按钮
-        findViewById(R.id.note_tv_float_classic_small).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeToSmall();
             }
         });
     }
@@ -173,12 +176,20 @@ public class NoteFloatClassicView extends FloatContent {
 
     @Override
     public int widthDp() {
-        return SharedUtil.getInt(SP_CLASSIC_SIZE_WIDTH, DEFAULT_STANDARD_WIDTH_DP);
+        int width = SharedUtil.getInt(SP_CLASSIC_SIZE_WIDTH, DEFAULT_STANDARD_WIDTH_DP);
+        if (width <= 0) {
+            return DEFAULT_STANDARD_WIDTH_DP;
+        }
+        return width;
     }
 
     @Override
     public int heightDp() {
-        return SharedUtil.getInt(SP_CLASSIC_SIZE_HEIGHT, DEFAULT_STANDARD_HEIGHT_DP);
+        int height = SharedUtil.getInt(SP_CLASSIC_SIZE_HEIGHT, DEFAULT_STANDARD_HEIGHT_DP);
+        if (height <= 0) {
+            return DEFAULT_STANDARD_HEIGHT_DP;
+        }
+        return height;
     }
 
     @Override
@@ -187,7 +198,7 @@ public class NoteFloatClassicView extends FloatContent {
     }
 
     // 通过滑动重设尺寸
-    private class ResizeTouchListener implements TouchBackView.OnTouchBackListener {
+    private class ResizeTouchListener extends TouchBackView.OnSimpleTouchBackListener {
 
         @Override
         public void onTouch(int offsetX, int offsetY) {
@@ -203,6 +214,12 @@ public class NoteFloatClassicView extends FloatContent {
             // 大小由内容来保存 因为内容决定了大小尺寸
             saveStandardSize(ScreenUtil.pxToDpInt(getContext(), NoteFloatService.getInstance().getWidth()),
                     ScreenUtil.pxToDpInt(getContext(), NoteFloatService.getInstance().getHeight()));
+        }
+
+        @Override
+        public void onClick() {
+            super.onClick();
+            NoteFloatService.getInstance().dismiss();
         }
     }
 
@@ -234,7 +251,7 @@ public class NoteFloatClassicView extends FloatContent {
                     }
                 }).start();
                 // 重设悬浮窗宽高
-                NoteFloatService.getInstance().resize(DEFAULT_SMALL_WIDTH_DP, DEFAULT_SMALL_HEIGHT_DP);
+                NoteFloatService.getInstance().resize(DEFAULT_SMALL_WIDTH_DP, DEFAULT_SMALL_HEIGHT_DP + 5); // 有个视觉高度问题 所以多+5dp
                 // 过3s重设透明度
                 mHandler.postDelayed(new Runnable() {
                     @Override

@@ -2,15 +2,31 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dixon.dnote">
 
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <application>
-        <activity android:name=".activity.NoteTableActivity"/>
+        <activity android:name=".activity.NoteSetActivity" />
+        <activity android:name=".activity.NoteEditActivity" />
+        <activity android:name=".activity.NoteHelpActivity" />
+        <activity android:name=".activity.NoteTableActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <receiver android:name=".desktop.NoteWidget">
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/note_widget_info" />
+
             <intent-filter>
+
+                <!-- 这个是必须要有的系统规定 -->
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.seewo.homewidgets.action.CLICK" />
+                <!-- 这个是我们自定义的 action ，用来更新UI，还可以自由添加更多 -->
+                <action android:name="com.dixon.note.widget.UPDATE" />
             </intent-filter>
         </receiver>
     </application>

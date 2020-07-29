@@ -42,4 +42,9 @@ dependencies {
     // android room 数据库框架
     api 'androidx.room:room-runtime:2.3.0-alpha01'
     annotationProcessor 'androidx.room:room-compiler:2.3.0-alpha01'
+
+    // 友盟基础组件库（所有友盟业务SDK都依赖基础组件库）
+    implementation "com.umeng.umsdk:common:2.1.0"
+    // 友盟统计SDK
+    implementation "com.umeng.umsdk:analytics:8.1.3"
 }

@@ -11,11 +11,12 @@ import com.dixon.dnote.R;
 import com.dixon.dnote.core.NoteConstant;
 import com.dixon.dnote.desktop.window.NoteFloatService;
 import com.dixon.simple.router.api.SimpleRouter;
+import com.dixon.simple.router.core.SRouter;
 
 @SimpleRouter(value = RouterConstant.NOTE_SET, interceptor = "")
 public class NoteSetActivity extends BaseActivity {
 
-    private View mFloatStyleView;
+    private View mFloatStyleView, mHelpView;
     private TextView mFloatStyleDescView;
 
     @Override
@@ -38,6 +39,12 @@ public class NoteSetActivity extends BaseActivity {
                 mFloatStyleDescView.setText(getFloatStyleDesc());
             }
         });
+        mHelpView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SRouter.build(NoteSetActivity.this, RouterConstant.NOTE_HELP).execute();
+            }
+        });
     }
 
     private String getNextStyle() {
@@ -57,11 +64,11 @@ public class NoteSetActivity extends BaseActivity {
         String floatStyle = SharedUtil.getString(NoteConstant.SP_FLOAT_STYLE, NoteConstant.FLOAT_STYLE_CLASSIC);
         switch (floatStyle) {
             case NoteConstant.FLOAT_STYLE_SIMPLE:
-                return "最简式";
+                return "Simple";
             case NoteConstant.FLOAT_STYLE_DESC:
-                return "三段式";
+                return "Standard";
             case NoteConstant.FLOAT_STYLE_CLASSIC:
-                return "经典式";
+                return "Classic";
         }
         return "";
     }
@@ -71,5 +78,6 @@ public class NoteSetActivity extends BaseActivity {
         super.onContentChanged();
         mFloatStyleView = findViewById(R.id.note_ll_set_float_style);
         mFloatStyleDescView = findViewById(R.id.note_tv_set_float_style_desc);
+        mHelpView = findViewById(R.id.note_ll_set_help);
     }
 }

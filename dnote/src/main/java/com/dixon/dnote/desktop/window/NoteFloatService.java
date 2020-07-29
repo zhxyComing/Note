@@ -1,12 +1,14 @@
 package com.dixon.dnote.desktop.window;
 
-import com.dixon.allbase.fun.FloatWindowHelper;
+import com.dixon.allbase.fun.WindowPermissionHelper;
 import com.dixon.dlibrary.util.AppTracker;
 import com.dixon.dlibrary.util.SharedUtil;
+import com.dixon.dnote.R;
 import com.dixon.dnote.core.NoteConstant;
 import com.dixon.dnote.desktop.window.ui.NoteFloatClassicView;
 import com.dixon.dnote.desktop.window.ui.NoteFloatDescView;
 import com.dixon.dnote.desktop.window.ui.NoteFloatSimpleView;
+import com.dixon.dnote.view.NotePermissionDialog;
 
 /**
  * Create by: dixon.xu
@@ -42,9 +44,9 @@ public class NoteFloatService {
      * 对外接口 展示悬浮窗
      */
     public void showFloatWindow() {
-        if (!FloatWindowHelper.hasPermission()) {
+        if (!WindowPermissionHelper.hasPermission()) {
             // 没有权限 去申请权限
-            // todo 展示申请权限弹窗
+            new NotePermissionDialog(AppTracker.getCurActivity(), R.style.dialog).show();
             return;
         }
         // 悬浮窗View

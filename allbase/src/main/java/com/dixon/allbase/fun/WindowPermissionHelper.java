@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
  * Create on: 2020.07.14
  * Functional desc: 悬浮窗帮助类
  */
-public class FloatWindowHelper {
+public class WindowPermissionHelper {
 
     /**
      * 是否有悬浮窗权限

@@ -9,4 +9,6 @@
     <color name="colorPrioritySecondary">#FF4081</color>
     <color name="colorPriorityOrdinary">#FF9800</color>
     <color name="colorPriorityNotInHurry">#8BC34A</color>
+    <color name="colorNoteOrigin">#FFC107</color>
+    <color name="colorNoteGreen">#C5E1A5</color>
 </resources>

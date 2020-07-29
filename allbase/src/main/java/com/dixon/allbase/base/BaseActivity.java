@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 
 import com.dixon.dlibrary.util.FontUtil;
 import com.dixon.dlibrary.util.StatusBarUtil;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Create by: dixon.xu

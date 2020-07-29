@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:ems="1"
             android:text="桌面笔记"
-            android:textColor="@color/colorBlueMain"
+            android:textColor="#8BC34A"
             android:textSize="22sp" />
 
     </LinearLayout>

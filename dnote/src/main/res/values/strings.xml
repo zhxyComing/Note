@@ -1,1 +1,3 @@
-<resources></resources>
+<resources>
+    <string name="note_help_desc_1"><![CDATA[Classic 悬浮笔记的样式如上图，下面一一说明它的功能使用：\n<1.点击笔记进入笔记编辑页，滑动笔记翻页；\n<2.左上角圆点点击最小化，滑动移动悬浮窗；\n<3.右上角圆点点击关闭悬浮窗，滑动重设悬浮窗尺寸；\n\<4.小化状态自动贴边，点击回归标准状态；]]></string>
+</resources>

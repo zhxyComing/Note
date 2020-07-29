@@ -76,10 +76,6 @@ public class NoteFloatSimpleView extends FloatContent {
         @Override
         public void onClick() {
             NoteBean floatData = NoteService.getInstance().getFloatData();
-            if (floatData == null) {
-                ToastUtil.toast("尚未设置悬浮窗笔记");
-                return;
-            }
             // 跳转到笔记页
             // getContext拿到的是application，要想启动activity，需要设置FLAG_ACTIVITY_NEW_TASK
             // SRouter会判断，如果context为application，则会附加该flag

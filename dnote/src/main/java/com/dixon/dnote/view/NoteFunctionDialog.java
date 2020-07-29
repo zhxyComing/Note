@@ -53,7 +53,7 @@ public class NoteFunctionDialog extends BaseDialog {
 
     @Override
     protected int widthPx() {
-        return ScreenUtil.dpToPxInt(getContext(), 240);
+        return ScreenUtil.getDisplayWidth(getContext());
     }
 
     @Override
@@ -71,6 +71,9 @@ public class NoteFunctionDialog extends BaseDialog {
                 public void onFinish() {
                     // 保存数据后 刷新桌面小部件（仅能刷新 显示权在用户那儿）
                     NoteWidget.update();
+                    if (listener != null) {
+                        listener.onWeightSetSuccess();
+                    }
                     dismiss();
                 }
             });
@@ -80,6 +83,9 @@ public class NoteFunctionDialog extends BaseDialog {
                 public void onFinish() {
                     // 保存数据后 显示或更新桌面悬浮窗
                     showOrUpdateDesktopFloat();
+                    if (listener != null) {
+                        listener.onFloatSetSuccess();
+                    }
                     dismiss();
                 }
             });
@@ -119,6 +125,10 @@ public class NoteFunctionDialog extends BaseDialog {
     }
 
     public interface Listener {
+
+        void onWeightSetSuccess();
+
+        void onFloatSetSuccess();
 
         void onDeleteSuccess();
     }
