@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/note_cv_all_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.NoteAllActivity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/note_cv_all_card"
+        android:layout_width="280dp"
+        android:layout_height="380dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="60dp"
+        app:cardBackgroundColor="@color/colorWhiteGrey"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp">
+
+        <ListView
+            android:id="@+id/note_lv_all_table"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:layoutAnimation="@anim/note_all_list_anim"
+            android:listSelector="@android:color/transparent"
+            android:scrollbars="none" />
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

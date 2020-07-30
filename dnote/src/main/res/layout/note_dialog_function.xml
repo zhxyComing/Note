@@ -10,7 +10,7 @@
         android:layout_height="100dp"
         android:layout_gravity="center"
         app:cardBackgroundColor="@color/colorWhiteGrey"
-        app:cardCornerRadius="60dp"
+        app:cardCornerRadius="50dp"
         app:cardElevation="4dp">
 
         <TextView
@@ -38,7 +38,7 @@
             android:layout_gravity="center"
             android:layout_marginEnd="10dp"
             app:cardBackgroundColor="#FF4436"
-            app:cardCornerRadius="60dp"
+            app:cardCornerRadius="50dp"
             app:cardElevation="4dp">
 
             <TextView
@@ -58,7 +58,7 @@
             android:layout_gravity="center"
             android:layout_marginStart="10dp"
             app:cardBackgroundColor="@color/colorWhiteGrey"
-            app:cardCornerRadius="60dp"
+            app:cardCornerRadius="50dp"
             app:cardElevation="4dp">
 
             <TextView

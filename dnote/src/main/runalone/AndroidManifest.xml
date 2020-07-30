@@ -12,9 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.NoteHelpActivity"/>
+        <activity
+            android:name=".activity.NoteAllActivity"
+            android:launchMode="singleInstance"
+            android:theme="@style/transparent" />
+        <activity android:name=".activity.NoteHelpActivity" />
         <activity android:name=".activity.NoteSetActivity" />
-        <activity android:name=".activity.NoteEditActivity" />
+        <activity
+            android:name=".activity.NoteEditActivity"
+            android:launchMode="singleInstance" />
         <activity android:name=".activity.NoteTableActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

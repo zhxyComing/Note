@@ -5,6 +5,7 @@ import com.dixon.dlibrary.util.AppTracker;
 import com.dixon.dlibrary.util.SharedUtil;
 import com.dixon.dnote.R;
 import com.dixon.dnote.core.NoteConstant;
+import com.dixon.dnote.desktop.window.ui.NoteFloatAllView;
 import com.dixon.dnote.desktop.window.ui.NoteFloatClassicView;
 import com.dixon.dnote.desktop.window.ui.NoteFloatDescView;
 import com.dixon.dnote.desktop.window.ui.NoteFloatSimpleView;
@@ -68,6 +69,10 @@ public class NoteFloatService {
                 break;
             case NoteConstant.FLOAT_STYLE_DESC:
                 mContainer.setContent(new NoteFloatDescView(AppTracker.getCurApplication()));
+                break;
+            case NoteConstant.FLOAT_STYLE_ALL:
+                mContainer.setContent(new NoteFloatAllView(AppTracker.getCurApplication()));
+                break;
         }
         mContainer.show();
     }

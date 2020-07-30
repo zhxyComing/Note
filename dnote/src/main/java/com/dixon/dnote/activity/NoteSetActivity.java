@@ -55,6 +55,8 @@ public class NoteSetActivity extends BaseActivity {
             case NoteConstant.FLOAT_STYLE_DESC:
                 return NoteConstant.FLOAT_STYLE_CLASSIC;
             case NoteConstant.FLOAT_STYLE_CLASSIC:
+                return NoteConstant.FLOAT_STYLE_ALL;
+            case NoteConstant.FLOAT_STYLE_ALL:
                 return NoteConstant.FLOAT_STYLE_SIMPLE;
         }
         return "";
@@ -69,6 +71,8 @@ public class NoteSetActivity extends BaseActivity {
                 return "Standard";
             case NoteConstant.FLOAT_STYLE_CLASSIC:
                 return "Classic";
+            case NoteConstant.FLOAT_STYLE_ALL:
+                return "All";
         }
         return "";
     }

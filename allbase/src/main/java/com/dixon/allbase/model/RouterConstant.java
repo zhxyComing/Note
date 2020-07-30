@@ -13,4 +13,5 @@ public final class RouterConstant {
     public static final String NOTE_EDIT = "note_edit_page";
     public static final String NOTE_SET = "note_set_page";
     public static final String NOTE_HELP = "note_help_page";
+    public static final String NOTE_ALL = "note_all_page";
 }

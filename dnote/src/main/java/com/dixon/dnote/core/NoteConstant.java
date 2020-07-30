@@ -11,4 +11,5 @@ public class NoteConstant {
     public static final String FLOAT_STYLE_SIMPLE = "float_style_simple"; // 最简式
     public static final String FLOAT_STYLE_DESC = "float_style_desc"; // 三段式
     public static final String FLOAT_STYLE_CLASSIC = "float_style_classic"; // 经典式
+    public static final String FLOAT_STYLE_ALL = "float_style_all"; // 全部缩略式
 }

@@ -76,14 +76,14 @@
         <!-- 2 small视图 -->
         <androidx.cardview.widget.CardView
             android:id="@+id/note_cv_float_classic_small_layout"
-            android:layout_width="25dp"
+            android:layout_width="26dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="6dp"
             android:alpha="0.9"
             android:visibility="gone"
             app:cardBackgroundColor="@color/colorWhite"
-            app:cardCornerRadius="45dp"
+            app:cardCornerRadius="13dp"
             app:cardElevation="2dp">
 
             <View
