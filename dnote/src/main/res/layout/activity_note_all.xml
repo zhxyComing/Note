@@ -25,6 +25,12 @@
             android:layoutAnimation="@anim/note_all_list_anim"
             android:listSelector="@android:color/transparent"
             android:scrollbars="none" />
+
+        <com.dixon.dnote.view.TouchBackView
+            android:id="@+id/note_tbv_all_table_move"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end" />
     </androidx.cardview.widget.CardView>
 
 </FrameLayout>

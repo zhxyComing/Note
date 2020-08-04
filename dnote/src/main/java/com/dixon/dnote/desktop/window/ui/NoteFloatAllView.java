@@ -29,7 +29,7 @@ import com.dixon.simple.router.core.SRouter;
  */
 public class NoteFloatAllView extends FloatContent {
 
-    private static final int WIDTH_DP = 22;
+    private static final int WIDTH_DP = 24;
     private static final int HEIGHT_DP = 64;
 
     private TouchControl touchControl;

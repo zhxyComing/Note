@@ -16,9 +16,11 @@ import com.dixon.dlibrary.util.ToastUtil;
 import com.dixon.dnote.R;
 import com.dixon.dnote.core.NoteService;
 import com.dixon.dnote.event.NoteTableRefreshEvent;
+import com.dixon.dnote.view.NoteDeleteDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -80,6 +82,19 @@ public class NoteAllTableAdapter extends BaseAdapter {
                 changeItemToEdit(holderNote);
             }
         });
+        holderNote.itemCardView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                NoteDeleteDialog.showDialog(noteBean, new NoteDeleteDialog.Listener() {
+                    @Override
+                    public void onDeleteSuccess() {
+                        refreshList();
+                        EventBus.getDefault().post(new NoteTableRefreshEvent());
+                    }
+                });
+                return true;
+            }
+        });
         holderNote.saveView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,6 +121,8 @@ public class NoteAllTableAdapter extends BaseAdapter {
                 changeItemToOrigin(holderNote);
             }
         });
+        // 回归原始态
+        changeItemToOrigin(holderNote);
     }
 
     private void changeItemToOrigin(ViewHolderNote holderNote) {
@@ -179,5 +196,25 @@ public class NoteAllTableAdapter extends BaseAdapter {
     public void reloadData(List<NoteBean> items) {
         this.mItems = items;
         notifyDataSetChanged();
+    }
+
+    /**
+     * 刷新列表
+     */
+    private void refreshList() {
+        NoteService.getInstance().queryAll(new NoteService.ResponseCallback<List<NoteBean>>() {
+            @Override
+            public void onSuccess(List<NoteBean> data) {
+                // 更新笔记数量
+                reloadData(data);
+            }
+
+            @Override
+            public void onFail(String desc) {
+                ToastUtil.toast(desc);
+                // 给个空列表
+                reloadData(new ArrayList<NoteBean>());
+            }
+        });
     }
 }
